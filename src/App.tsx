@@ -63,18 +63,30 @@ function App() {
   const [totalHours, totalSessions] = calculateHoursAndSessionsTotal();
 
   const roundedTotalHours = Math.floor(totalHours);
-  const roundedTotalMinutes = Number(
-    ((totalHours - roundedTotalHours) * 60).toFixed(10),
+  const roundedTotalMinutes = Math.ceil(
+    Math.round(Number((totalHours - roundedTotalHours) * 60)),
   );
-  const rawRemainingHours =
-    totalHours - Number(studiedHours) - Number(studiedMinutes) / 60;
+  const rawRemainingHours = Math.max(
+    0,
+    Number(
+      (totalHours - Number(studiedHours) - Number(studiedMinutes) / 60).toFixed(
+        10,
+      ),
+    ),
+  );
   const remainingHours = Math.floor(rawRemainingHours);
-  const remainingMinutes = Number(
-    ((rawRemainingHours - remainingHours) * 60).toFixed(10),
+  const remainingMinutes = Math.round(
+    Math.round(Number((rawRemainingHours - remainingHours) * 60)),
   );
 
-  const roundedTotalSessions = Math.ceil(totalSessions);
-  const remainingSessions = roundedTotalSessions - Number(gymSessions);
+  const roundedTotalSessions = Math.max(
+    0,
+    Math.ceil(Number(totalSessions.toFixed(10))),
+  );
+  const remainingSessions = Math.max(
+    0,
+    roundedTotalSessions - Number(gymSessions),
+  );
 
   return (
     <>
@@ -152,18 +164,17 @@ function App() {
       <section>
         <h2>Calculations</h2>
         <p>
-          You must study <b>{Math.max(0, remainingHours)}</b> hours and{" "}
-          <b>{Math.floor(remainingMinutes)}</b> minutes to reach a total of{" "}
-          <b>{Math.max(0, roundedTotalHours)}</b> hours and{" "}
-          <b>{Math.ceil(roundedTotalMinutes)}</b> minutes
+          You must study <b>{remainingHours}</b> hours and{" "}
+          <b>{remainingMinutes}</b> minutes to reach a total of{" "}
+          <b>{roundedTotalHours}</b> hours and <b>{roundedTotalMinutes}</b>{" "}
+          minutes
         </p>
         <p>
           <b>or</b>
         </p>
         <p>
-          You must go to the gym <b>{Math.max(0, remainingSessions)}</b> times
-          to reach a total of <b>{Math.max(0, roundedTotalSessions)}</b>{" "}
-          sessions.
+          You must go to the gym <b>{remainingSessions}</b> times to reach a
+          total of <b>{roundedTotalSessions}</b> sessions.
         </p>
       </section>
     </>
