@@ -81,7 +81,7 @@ function App() {
 
   const roundedTotalSessions = Math.max(
     0,
-    Math.ceil(Number(totalSessions.toFixed(10))),
+    Math.ceil(Number((totalSessions ?? 0).toFixed(10))),
   );
   const remainingSessions = Math.max(
     0,
@@ -90,7 +90,9 @@ function App() {
 
   return (
     <>
-      <h1>Study/Gym Ratio Calculator<sub>v0.0.2</sub></h1>
+      <h1>
+        Study/Gym Ratio Calculator<sub>v0.0.3</sub>
+      </h1>
       <section>
         <h2>Parameters</h2>
         <div>
