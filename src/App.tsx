@@ -94,7 +94,7 @@ function App() {
   return (
     <>
       <h1>
-        Study/Gym Ratio Calculator<sub>v0.0.3</sub>
+        Study/Gym Ratio Calculator<sub>v0.0.4</sub>
       </h1>
       <section>
         <h2>Parameters</h2>
