@@ -30,6 +30,8 @@ function App() {
     }
     const [startYear, startMonth] = startedAtMonth.split("-");
     const today = new Date();
+    const monday = today.getDay() - 1;
+    today.setDate(today.getDate() - monday);
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth() + 1;
     const monthsPassed =
@@ -62,9 +64,10 @@ function App() {
 
   const [totalHours, totalSessions] = calculateHoursAndSessionsTotal();
 
-  const roundedTotalHours = Math.floor(totalHours);
-  const roundedTotalMinutes = Math.ceil(
-    Math.round(Number((totalHours - roundedTotalHours) * 60)),
+  const roundedTotalHours = Math.max(0, Math.floor(totalHours));
+  const roundedTotalMinutes = Math.max(
+    0,
+    Math.ceil(Math.round(Number((totalHours - roundedTotalHours) * 60))),
   );
   const rawRemainingHours = Math.max(
     0,
